@@ -3,26 +3,69 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <title>Startup Project</title>
     <style>
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --cyan: #15bae4;
+        --dark: #1d1d1b;
+        --purple: #420039;
+        --orange: #eb4511;
+        --light: #f2f2f2;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
       @keyframes fadeSlideIn {
-        from { opacity: 0; transform: translateY(14px); }
-        to   { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       @keyframes successGlow {
-        0%, 100% { box-shadow: 0 0 0px rgba(58, 122, 58, 0); }
-        50%       { box-shadow: 0 0 36px rgba(58, 122, 58, 0.5); }
+        0%,
+        100% {
+          box-shadow: 0 12px 40px rgba(29, 29, 27, 0.08);
+        }
+        50% {
+          box-shadow: 0 12px 40px rgba(21, 186, 228, 0.45);
+        }
       }
 
       @keyframes failureShake {
-        0%, 100% { transform: translateX(0); }
-        20%      { transform: translateX(-8px); }
-        40%      { transform: translateX(8px); }
-        60%      { transform: translateX(-5px); }
-        80%      { transform: translateX(5px); }
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20% {
+          transform: translateX(-8px);
+        }
+        40% {
+          transform: translateX(8px);
+        }
+        60% {
+          transform: translateX(-5px);
+        }
+        80% {
+          transform: translateX(5px);
+        }
       }
 
       body {
@@ -31,17 +74,14 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: #0d0d0d;
-        color: #e8e0d0;
-        font-family: Georgia, 'Times New Roman', serif;
+        background: var(--light);
+        color: var(--dark);
+        font-family: "Poppins", system-ui, sans-serif;
         padding: 2rem;
       }
 
-      h1 {
-        font-size: 1rem;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: #665544;
+      .logo {
+        width: 220px;
         margin-bottom: 3rem;
         animation: fadeSlideIn 0.6s ease both;
       }
@@ -54,7 +94,27 @@
         gap: 2.5rem;
         align-items: center;
         text-align: center;
+        background: #fff;
+        border-radius: 20px;
+        padding: 3rem 2.5rem;
+        border-top: 6px solid var(--cyan);
+        box-shadow: 0 12px 40px rgba(29, 29, 27, 0.08);
+        transition: border-color 0.2s ease;
         animation: fadeSlideIn 0.6s ease 0.15s both;
+      }
+
+      #card.success {
+        border-top-color: var(--cyan);
+        animation:
+          fadeSlideIn 0.5s ease both,
+          successGlow 2.4s ease 0.5s infinite;
+      }
+
+      #card.failure {
+        border-top-color: var(--orange);
+        animation:
+          fadeSlideIn 0.4s ease both,
+          failureShake 0.5s ease 0.3s;
       }
 
       /* ── Report ─────────────────────────────────────────── */
@@ -74,11 +134,13 @@
         font-size: 0.7rem;
         letter-spacing: 0.3em;
         text-transform: uppercase;
-        color: #554433;
+        color: var(--purple);
         margin-bottom: 0.4rem;
       }
       .decision {
-        border: 1px solid #222;
+        border: 1px solid rgba(29, 29, 27, 0.12);
+        border-radius: 12px;
+        background: #fff;
         padding: 0.85rem 1.1rem;
         display: flex;
         flex-direction: column;
@@ -94,39 +156,41 @@
         font-size: 0.65rem;
         letter-spacing: 0.18em;
         text-transform: uppercase;
-        color: #443322;
+        color: var(--dark);
       }
       .decision-choice {
         font-size: 0.95rem;
-        color: #c8bfb0;
+        color: rgba(29, 29, 27, 0.55);
       }
-      .decision-choice strong { color: #e8e0d0; }
-      .verdict-good  { font-size: 0.75rem; letter-spacing: 0.05em; color: #5aaa5a; }
-      .verdict-bad   { font-size: 0.75rem; letter-spacing: 0.05em; color: #bb5555; }
-      .verdict-mixed { font-size: 0.75rem; letter-spacing: 0.05em; color: #bbaa44; }
+      .decision-choice strong {
+        color: var(--dark);
+      }
+      .verdict-good {
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        color: var(--cyan);
+      }
+      .verdict-bad {
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        color: var(--orange);
+      }
+      .verdict-mixed {
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        color: var(--purple);
+      }
       .decision-why {
         font-size: 0.82rem;
-        color: #7a6a5a;
+        color: rgba(29, 29, 27, 0.65);
         line-height: 1.65;
         margin-top: 0.15rem;
-      }
-
-      #card.success {
-        border-top: 2px solid #3a7a3a;
-        padding-top: 1.5rem;
-        animation: fadeSlideIn 0.5s ease both, successGlow 2.4s ease 0.5s infinite;
-      }
-
-      #card.failure {
-        border-top: 2px solid #7a2a2a;
-        padding-top: 1.5rem;
-        animation: fadeSlideIn 0.4s ease both, failureShake 0.5s ease 0.3s;
       }
 
       #text {
         font-size: 1.25rem;
         line-height: 1.8;
-        color: #d4c9b8;
+        color: var(--dark);
         min-height: 5rem;
       }
 
@@ -136,6 +200,8 @@
 
       #buttons {
         display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 1.5rem;
       }
 
@@ -144,33 +210,31 @@
       }
 
       button {
-        padding: 0.75rem 2.5rem;
+        padding: 0.85rem 2.5rem;
         font-size: 1rem;
         font-family: inherit;
-        letter-spacing: 0.08em;
-        background: transparent;
-        color: #e8e0d0;
-        border: 1px solid #554433;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        color: var(--dark);
+        background: var(--cyan);
+        border: none;
+        border-radius: 999px;
         cursor: pointer;
-        transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+        transition:
+          background 0.15s,
+          color 0.15s,
+          transform 0.15s;
       }
 
       button:hover {
-        background: #554433;
-        color: #fff;
-        border-color: #776655;
-        transform: translateY(-3px);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
-      }
-
-      button:active {
-        transform: scale(0.95);
-        box-shadow: none;
+        background: var(--purple);
+        color: var(--light);
+        transform: translateY(-2px);
       }
     </style>
   </head>
   <body>
-    <h1>Startup Project</h1>
+    <img class="logo" src="/logo.svg" alt="Startup Project" />
     <div id="card">
       <p id="text"></p>
       <div id="buttons"></div>
