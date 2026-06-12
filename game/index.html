@@ -7,6 +7,24 @@
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+      @keyframes fadeSlideIn {
+        from { opacity: 0; transform: translateY(14px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes successGlow {
+        0%, 100% { box-shadow: 0 0 0px rgba(58, 122, 58, 0); }
+        50%       { box-shadow: 0 0 36px rgba(58, 122, 58, 0.5); }
+      }
+
+      @keyframes failureShake {
+        0%, 100% { transform: translateX(0); }
+        20%      { transform: translateX(-8px); }
+        40%      { transform: translateX(8px); }
+        60%      { transform: translateX(-5px); }
+        80%      { transform: translateX(5px); }
+      }
+
       body {
         min-height: 100vh;
         display: flex;
@@ -25,6 +43,7 @@
         text-transform: uppercase;
         color: #665544;
         margin-bottom: 3rem;
+        animation: fadeSlideIn 0.6s ease both;
       }
 
       #card {
@@ -35,6 +54,73 @@
         gap: 2.5rem;
         align-items: center;
         text-align: center;
+        animation: fadeSlideIn 0.6s ease 0.15s both;
+      }
+
+      /* ── Report ─────────────────────────────────────────── */
+      #report {
+        max-width: 560px;
+        width: 100%;
+        margin-top: 3rem;
+        display: none;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+      #report.visible {
+        display: flex;
+        animation: fadeSlideIn 0.5s ease 0.6s both;
+      }
+      .report-title {
+        font-size: 0.7rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #554433;
+        margin-bottom: 0.4rem;
+      }
+      .decision {
+        border: 1px solid #222;
+        padding: 0.85rem 1.1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+      .decision-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 1rem;
+      }
+      .decision-label {
+        font-size: 0.65rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #443322;
+      }
+      .decision-choice {
+        font-size: 0.95rem;
+        color: #c8bfb0;
+      }
+      .decision-choice strong { color: #e8e0d0; }
+      .verdict-good  { font-size: 0.75rem; letter-spacing: 0.05em; color: #5aaa5a; }
+      .verdict-bad   { font-size: 0.75rem; letter-spacing: 0.05em; color: #bb5555; }
+      .verdict-mixed { font-size: 0.75rem; letter-spacing: 0.05em; color: #bbaa44; }
+      .decision-why {
+        font-size: 0.82rem;
+        color: #7a6a5a;
+        line-height: 1.65;
+        margin-top: 0.15rem;
+      }
+
+      #card.success {
+        border-top: 2px solid #3a7a3a;
+        padding-top: 1.5rem;
+        animation: fadeSlideIn 0.5s ease both, successGlow 2.4s ease 0.5s infinite;
+      }
+
+      #card.failure {
+        border-top: 2px solid #7a2a2a;
+        padding-top: 1.5rem;
+        animation: fadeSlideIn 0.4s ease both, failureShake 0.5s ease 0.3s;
       }
 
       #text {
@@ -44,9 +130,17 @@
         min-height: 5rem;
       }
 
+      #text.anim {
+        animation: fadeSlideIn 0.4s ease both;
+      }
+
       #buttons {
         display: flex;
         gap: 1.5rem;
+      }
+
+      #buttons.anim-d {
+        animation: fadeSlideIn 0.4s ease 0.15s both;
       }
 
       button {
@@ -58,17 +152,21 @@
         color: #e8e0d0;
         border: 1px solid #554433;
         cursor: pointer;
-        transition: background 0.15s, color 0.15s, border-color 0.15s;
+        transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s;
       }
 
       button:hover {
         background: #554433;
         color: #fff;
         border-color: #776655;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
       }
 
-      #card.success { border-top: 2px solid #3a7a3a; padding-top: 1.5rem; }
-      #card.failure { border-top: 2px solid #7a2a2a; padding-top: 1.5rem; }
+      button:active {
+        transform: scale(0.95);
+        box-shadow: none;
+      }
     </style>
   </head>
   <body>
@@ -77,6 +175,7 @@
       <p id="text"></p>
       <div id="buttons"></div>
     </div>
+    <div id="report"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
